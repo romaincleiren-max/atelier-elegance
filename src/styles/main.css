@@ -544,6 +544,45 @@ div[style*="overflowX: auto"]::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, #ff4d73 0%, #ff6b61 50%, #ff9873 100%);
 }
 
+/* Parallax Carousel Styles */
+.carousel-parallax {
+    scroll-behavior: smooth;
+    perspective: 1000px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel-parallax > div {
+    scroll-snap-align: start;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+.carousel-parallax > div:hover {
+    transform: scale(1.02) translateZ(10px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+/* Smooth momentum scrolling */
+@media (hover: hover) {
+    .carousel-parallax {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Mobile touch optimization */
+@media (hover: none) {
+    .carousel-parallax {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: auto;
+    }
+
+    .carousel-parallax > div {
+        transition: transform 0.2s ease-out;
+    }
+}
+
 @keyframes slideUp {
     from {
         opacity: 0;
