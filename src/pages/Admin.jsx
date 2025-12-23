@@ -251,6 +251,53 @@ export default function Admin() {
     return apt.status === 'pending' || apt.status === 'waiting_admin'
   }
 
+  async function resetAllAppointments() {
+    if (!supabase) return
+
+    const confirmText = 'SUPPRIMER'
+    const userInput = prompt(
+      `⚠️ ATTENTION : Cette action est IRRÉVERSIBLE !\n\n` +
+      `Vous êtes sur le point de SUPPRIMER TOUS LES RENDEZ-VOUS (${appointments.length} rendez-vous).\n\n` +
+      `Cela inclut :\n` +
+      `- Tous les rendez-vous en attente\n` +
+      `- Tous les rendez-vous confirmés\n` +
+      `- Tous les rendez-vous annulés\n` +
+      `- Tout l'historique associé\n\n` +
+      `Pour confirmer, tapez exactement : ${confirmText}`
+    )
+
+    if (userInput !== confirmText) {
+      if (userInput !== null) {
+        alert('Réinitialisation annulée. Le texte ne correspond pas.')
+      }
+      return
+    }
+
+    const secondConfirm = confirm(
+      '⚠️ DERNIÈRE CONFIRMATION\n\n' +
+      'Êtes-vous ABSOLUMENT SÛR de vouloir supprimer tous les rendez-vous ?\n\n' +
+      'Cette action ne peut PAS être annulée.'
+    )
+
+    if (!secondConfirm) {
+      alert('Réinitialisation annulée.')
+      return
+    }
+
+    // Supprimer tous les rendez-vous
+    const { error } = await supabase
+      .from('appointments')
+      .delete()
+      .neq('id', 0) // Supprime tout (neq 0 = tous les IDs)
+
+    if (!error) {
+      alert(`✅ Tous les rendez-vous ont été supprimés (${appointments.length} rendez-vous)`)
+      fetchAppointments()
+    } else {
+      alert('❌ Erreur lors de la suppression: ' + error.message)
+    }
+  }
+
   const filteredAppointments = getFilteredAppointments()
   const stats = {
     total: appointments.length,
@@ -329,6 +376,52 @@ export default function Admin() {
       <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center', marginBottom: '-3rem' }}>
         <AdminCalendar />
       </div>
+
+      {/* Bouton de réinitialisation */}
+      {appointments.length > 0 && (
+        <div style={{
+          marginBottom: '1.5rem',
+          textAlign: 'center',
+          padding: '1rem',
+          background: '#fee2e2',
+          borderRadius: '12px',
+          border: '2px solid #ef4444'
+        }}>
+          <button
+            onClick={resetAllAppointments}
+            style={{
+              padding: '0.8rem 2rem',
+              background: '#ef4444',
+              color: 'white',
+              border: 'none',
+              borderRadius: '25px',
+              fontSize: '0.95rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(239, 68, 68, 0.3)'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.background = '#dc2626'
+              e.target.style.transform = 'scale(1.05)'
+            }}
+            onMouseOut={(e) => {
+              e.target.style.background = '#ef4444'
+              e.target.style.transform = 'scale(1)'
+            }}
+          >
+            🗑️ Réinitialiser tout le calendrier ({appointments.length} RDV)
+          </button>
+          <p style={{
+            marginTop: '0.5rem',
+            fontSize: '0.85rem',
+            color: '#991b1b',
+            fontWeight: '500'
+          }}>
+            ⚠️ Action irréversible - Double confirmation requise
+          </p>
+        </div>
+      )}
 
       {/* Statistiques - Version compacte */}
       <div style={{
