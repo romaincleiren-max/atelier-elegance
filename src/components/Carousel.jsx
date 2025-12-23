@@ -62,7 +62,7 @@ export default function Carousel({ children, itemWidth = 400 }) {
     if (!isDragging) return
     e.preventDefault()
     const x = e.pageX - carouselRef.current.offsetLeft
-    const walk = (x - startX) * 2 // Scroll speed multiplier
+    const walk = (x - startX) * 1.5 // Scroll speed multiplier - plus fluide
     carouselRef.current.scrollLeft = scrollLeftStart - walk
   }
 
@@ -81,7 +81,7 @@ export default function Carousel({ children, itemWidth = 400 }) {
 
   const handleTouchMove = (e) => {
     const x = e.touches[0].pageX - carouselRef.current.offsetLeft
-    const walk = (x - startX) * 2
+    const walk = (x - startX) * 1.5 // Plus fluide
     carouselRef.current.scrollLeft = scrollLeftStart - walk
   }
 

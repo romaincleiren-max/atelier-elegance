@@ -291,14 +291,14 @@ body {
     transform: translateY(-2px);
 }
 
-/* Collection */
+/* Collection - Layout en grille collée */
 .collection {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 0; /* Tuiles collées */
 }
 
 .dress-card {
@@ -366,6 +366,26 @@ body {
     opacity: 0.8;
     transform: scale(1.05);
 }
+
+/* Nouveau design élégant pour les cartes */
+.dress-card-elegant {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.dress-card-elegant.visible {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.dress-card-elegant.visible:nth-child(1) { animation-delay: 0.05s; }
+.dress-card-elegant.visible:nth-child(2) { animation-delay: 0.1s; }
+.dress-card-elegant.visible:nth-child(3) { animation-delay: 0.15s; }
+.dress-card-elegant.visible:nth-child(4) { animation-delay: 0.2s; }
+.dress-card-elegant.visible:nth-child(5) { animation-delay: 0.25s; }
+.dress-card-elegant.visible:nth-child(6) { animation-delay: 0.3s; }
+.dress-card-elegant.visible:nth-child(7) { animation-delay: 0.35s; }
+.dress-card-elegant.visible:nth-child(8) { animation-delay: 0.4s; }
+.dress-card-elegant.visible:nth-child(9) { animation-delay: 0.45s; }
 
 .dress-info {
     padding: 1.2rem 1.5rem;
@@ -546,16 +566,17 @@ div[style*="overflowX: auto"]::-webkit-scrollbar-thumb:hover {
 
 /* Parallax Carousel Styles */
 .carousel-parallax {
-    scroll-behavior: smooth;
-    perspective: 1000px;
+    scroll-behavior: auto; /* Plus réactif pour le drag */
+    perspective: 1200px;
     -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity; /* proximity au lieu de mandatory pour plus de fluidité */
 }
 
 .carousel-parallax > div {
-    scroll-snap-align: start;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-snap-align: center; /* Centrage des items */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), /* Easing plus fluide */
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
 }
 
@@ -567,7 +588,7 @@ div[style*="overflowX: auto"]::-webkit-scrollbar-thumb:hover {
 /* Smooth momentum scrolling */
 @media (hover: hover) {
     .carousel-parallax {
-        scroll-behavior: smooth;
+        scroll-behavior: auto; /* Plus de contrôle avec le drag */
     }
 }
 
@@ -579,7 +600,7 @@ div[style*="overflowX: auto"]::-webkit-scrollbar-thumb:hover {
     }
 
     .carousel-parallax > div {
-        transition: transform 0.2s ease-out;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 }
 

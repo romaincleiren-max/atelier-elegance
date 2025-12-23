@@ -394,21 +394,47 @@ export default function Account() {
           <p style={{ opacity: 0.7 }}>Vous n'avez pas encore de rendez-vous.</p>
         ) : (
           <Carousel itemWidth={450}>
-            {appointments.map((apt) => (
-              <div key={apt.id} style={{
-                border: `3px solid ${
-                  apt.status === 'confirmed' ? '#10b981' :
-                  apt.status === 'waiting_user' ? '#3b82f6' :
-                  apt.status === 'cancelled' ? '#ef4444' : '#f59e0b'
-                }`,
-                padding: '1.5rem',
-                borderRadius: '12px',
-                background: apt.status === 'waiting_user' ? '#f0f9ff' : 'white',
-                minWidth: '450px',
-                maxWidth: '450px',
-                flexShrink: 0,
-                scrollSnapAlign: 'start'
-              }}>
+            {appointments.map((apt, index) => {
+              // Le premier rendez-vous non annulé est le prochain
+              const isNext = index === 0 && apt.status !== 'cancelled'
+
+              return (
+                <div key={apt.id} style={{
+                  border: `3px solid ${
+                    apt.status === 'confirmed' ? '#10b981' :
+                    apt.status === 'waiting_user' ? '#3b82f6' :
+                    apt.status === 'cancelled' ? '#ef4444' : '#f59e0b'
+                  }`,
+                  padding: '1.5rem',
+                  borderRadius: '12px',
+                  background: apt.status === 'waiting_user' ? '#f0f9ff' : 'white',
+                  minWidth: isNext ? '520px' : '450px', // Plus grand si prochain RDV
+                  maxWidth: isNext ? '520px' : '450px',
+                  flexShrink: 0,
+                  scrollSnapAlign: 'start',
+                  transform: isNext ? 'scale(1.05)' : 'scale(1)',
+                  boxShadow: isNext ? '0 8px 30px rgba(255, 107, 138, 0.3)' : '0 2px 10px rgba(0,0,0,0.1)',
+                  transition: 'all 0.3s ease',
+                  position: 'relative'
+                }}>
+                {isNext && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '-12px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: 'var(--gradient-sunset)',
+                    color: 'white',
+                    padding: '0.5rem 1.5rem',
+                    borderRadius: '20px',
+                    fontSize: '0.85rem',
+                    fontWeight: '600',
+                    boxShadow: '0 4px 15px rgba(255, 107, 138, 0.4)',
+                    zIndex: 10
+                  }}>
+                    ⭐ Prochain Rendez-vous
+                  </div>
+                )}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                   <div>
                     <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: '0.5rem' }}>
@@ -594,7 +620,8 @@ export default function Account() {
                   </div>
                 )}
               </div>
-            ))}
+              )
+            })}
           </Carousel>
         )}
       </section>

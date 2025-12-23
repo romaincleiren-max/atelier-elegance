@@ -48,7 +48,7 @@ export default function Home() {
     )
 
     // Observer toutes les cartes de robes
-    const cards = document.querySelectorAll('.dress-card')
+    const cards = document.querySelectorAll('.dress-card, .dress-card-elegant')
     cards.forEach((card) => observer.observe(card))
 
     return () => {
