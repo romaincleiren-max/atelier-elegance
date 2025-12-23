@@ -1,6 +1,6 @@
 # Atelier Élégance - Site de Robes de Mariée
 
-Site web moderne pour la boutique de robes de mariée "Atelier Élégance". Application complète avec authentification, base de données et hébergement sécurisé.
+Site web moderne pour la boutique de robes de mariée "Atelier Élégance" (Coline Cleiren Couture). Application complète avec authentification, base de données et hébergement sécurisé.
 
 ## Technologies
 
