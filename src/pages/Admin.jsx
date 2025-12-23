@@ -288,7 +288,7 @@ export default function Admin() {
     const { error } = await supabase
       .from('appointments')
       .delete()
-      .neq('id', 0) // Supprime tout (neq 0 = tous les IDs)
+      .not('id', 'is', null) // Supprime tout (tous les IDs non null)
 
     if (!error) {
       alert(`✅ Tous les rendez-vous ont été supprimés (${appointments.length} rendez-vous)`)
