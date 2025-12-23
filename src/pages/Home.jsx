@@ -16,6 +16,7 @@ export default function Home() {
   const [appointmentModalOpen, setAppointmentModalOpen] = useState(false)
   const [videoUrl, setVideoUrl] = useState('https://www.youtube.com/watch?v=k1gj5wCLAhc')
   const [videoStart, setVideoStart] = useState('51')
+  const [accessoriesBannerUrl, setAccessoriesBannerUrl] = useState('')
   const [appointmentForm, setAppointmentForm] = useState({
     firstName: '',
     lastName: '',
@@ -62,7 +63,7 @@ export default function Home() {
     const { data, error } = await supabase
       .from('site_settings')
       .select('*')
-      .in('setting_key', ['hero_video_url', 'hero_video_start'])
+      .in('setting_key', ['hero_video_url', 'hero_video_start', 'accessories_banner_url'])
 
     if (!error && data) {
       data.forEach(setting => {
@@ -70,6 +71,8 @@ export default function Home() {
           setVideoUrl(setting.setting_value)
         } else if (setting.setting_key === 'hero_video_start') {
           setVideoStart(setting.setting_value)
+        } else if (setting.setting_key === 'accessories_banner_url') {
+          setAccessoriesBannerUrl(setting.setting_value)
         }
       })
     }
@@ -290,6 +293,72 @@ export default function Home() {
           />
         ))}
       </div>
+
+      {/* Bannière Accessoires */}
+      {accessoriesBannerUrl && (
+        <div style={{
+          maxWidth: '1600px',
+          margin: '3rem auto',
+          padding: '0 1rem',
+          position: 'relative'
+        }}>
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            height: '400px',
+            borderRadius: '15px',
+            overflow: 'hidden',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.15)'
+          }}>
+            <img
+              src={accessoriesBannerUrl}
+              alt="Accessoires"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(255, 255, 255, 0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <button style={{
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '3px solid #2c2420',
+                padding: '1.5rem 4rem',
+                fontSize: '2rem',
+                fontFamily: 'Cormorant Garamond, serif',
+                fontWeight: '600',
+                color: '#2c2420',
+                cursor: 'pointer',
+                borderRadius: '8px',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 1)'
+                e.target.style.transform = 'scale(1.05)'
+              }}
+              onMouseOut={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.9)'
+                e.target.style.transform = 'scale(1)'
+              }}
+              onClick={() => window.location.href = '/contact'}
+              >
+                Accessoires
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {modalOpen && selectedDress && (
         <div className="modal active" onClick={(e) => e.target.className === 'modal active' && closeModal()}>

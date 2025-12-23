@@ -13,7 +13,8 @@ export default function AdminSettings() {
   const [message, setMessage] = useState({ type: '', text: '' })
   const [settings, setSettings] = useState({
     hero_video_url: '',
-    hero_video_start: '51'
+    hero_video_start: '51',
+    accessories_banner_url: ''
   })
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function AdminSettings() {
     const { data, error } = await supabase
       .from('site_settings')
       .select('*')
-      .in('setting_key', ['hero_video_url', 'hero_video_start'])
+      .in('setting_key', ['hero_video_url', 'hero_video_start', 'accessories_banner_url'])
 
     if (!error && data) {
       const settingsObj = {}
@@ -66,6 +67,14 @@ export default function AdminSettings() {
         .eq('setting_key', 'hero_video_start')
 
       if (startError) throw startError
+
+      // Mettre à jour l'URL de la bannière accessoires
+      const { error: bannerError } = await supabase
+        .from('site_settings')
+        .update({ setting_value: settings.accessories_banner_url })
+        .eq('setting_key', 'accessories_banner_url')
+
+      if (bannerError) throw bannerError
 
       setMessage({ type: 'success', text: 'Paramètres enregistrés avec succès ! Rechargez la page d\'accueil pour voir les changements.' })
     } catch (error) {
@@ -235,6 +244,68 @@ export default function AdminSettings() {
                 </div>
               </div>
             )}
+
+            {/* Bannière Accessoires */}
+            <div style={{
+              marginBottom: '2rem',
+              padding: '2rem',
+              background: 'var(--gradient-soft)',
+              borderRadius: '12px',
+              border: '2px solid var(--secondary)'
+            }}>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem', fontWeight: '600', fontFamily: 'Cormorant Garamond, serif' }}>
+                Bannière Accessoires
+              </h3>
+
+              <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+                  URL de l'image de la bannière
+                </label>
+                <input
+                  type="url"
+                  value={settings.accessories_banner_url}
+                  onChange={(e) => setSettings({ ...settings, accessories_banner_url: e.target.value })}
+                  placeholder="https://..."
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    border: '2px solid var(--secondary)',
+                    borderRadius: '8px',
+                    fontSize: '1rem'
+                  }}
+                />
+                <p style={{ fontSize: '0.85rem', opacity: 0.7, marginTop: '0.5rem' }}>
+                  Cette bannière apparaîtra en bas de la page d'accueil avec un bouton "Accessoires"
+                </p>
+              </div>
+
+              {/* Aperçu de la bannière */}
+              {settings.accessories_banner_url && (
+                <div style={{ marginTop: '1rem' }}>
+                  <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem', fontWeight: '600' }}>
+                    Aperçu de la bannière
+                  </h4>
+                  <div style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '200px',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    border: '2px solid var(--secondary)'
+                  }}>
+                    <img
+                      src={settings.accessories_banner_url}
+                      alt="Aperçu bannière"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button
               type="submit"

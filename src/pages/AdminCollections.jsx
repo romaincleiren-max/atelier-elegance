@@ -16,6 +16,7 @@ export default function AdminCollections() {
     name: '',
     style: '',
     price: '',
+    category: '',
     image_url: '',
     description: '',
     available: true
@@ -47,7 +48,7 @@ export default function AdminCollections() {
   async function saveDress() {
     if (!supabase) return
 
-    if (!formData.name || !formData.style || !formData.price || !formData.image_url) {
+    if (!formData.name || !formData.style || !formData.price || !formData.category || !formData.image_url) {
       alert('Veuillez remplir tous les champs obligatoires')
       return
     }
@@ -56,6 +57,7 @@ export default function AdminCollections() {
       name: formData.name,
       style: formData.style,
       price: parseFloat(formData.price),
+      category: formData.category,
       image_url: formData.image_url,
       description: formData.description || null,
       available: formData.available
@@ -110,6 +112,7 @@ export default function AdminCollections() {
       name: dress.name,
       style: dress.style,
       price: dress.price.toString(),
+      category: dress.category || '',
       image_url: dress.image_url,
       description: dress.description || '',
       available: dress.available
@@ -124,6 +127,7 @@ export default function AdminCollections() {
       name: '',
       style: '',
       price: '',
+      category: '',
       image_url: '',
       description: '',
       available: true
@@ -214,14 +218,35 @@ export default function AdminCollections() {
               />
             </div>
             <div className="form-group">
-              <label>URL de l'image *</label>
-              <input
-                type="url"
-                value={formData.image_url}
-                onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                placeholder="https://..."
-              />
+              <label>Catégorie *</label>
+              <select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.8rem',
+                  border: '2px solid var(--secondary)',
+                  borderRadius: '4px',
+                  fontSize: '1rem'
+                }}
+              >
+                <option value="">Sélectionner une catégorie</option>
+                <option value="princesse">Princesse</option>
+                <option value="sirene">Sirène</option>
+                <option value="empire">Empire</option>
+                <option value="boheme">Bohème</option>
+              </select>
             </div>
+          </div>
+
+          <div className="form-group" style={{ marginBottom: '1rem' }}>
+            <label>URL de l'image *</label>
+            <input
+              type="url"
+              value={formData.image_url}
+              onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+              placeholder="https://..."
+            />
           </div>
 
           <div className="form-group" style={{ marginBottom: '1rem' }}>

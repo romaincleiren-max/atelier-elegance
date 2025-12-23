@@ -291,14 +291,14 @@ body {
     transform: translateY(-2px);
 }
 
-/* Collection - Layout en grille collée */
+/* Collection - Layout en grille avec espacement léger */
 .collection {
     max-width: 1600px;
     margin: 0 auto;
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 0; /* Tuiles collées */
+    gap: 0.5rem; /* Espacement léger */
 }
 
 .dress-card {
