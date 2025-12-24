@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../lib/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { useAdminCheck } from '../hooks/useAdminCheck'
+import { isValidImageUrl } from '../lib/validation'
 
 export default function AdminPhotos() {
   const { user } = useAuth()
@@ -82,6 +83,12 @@ export default function AdminPhotos() {
 
     if (!formData.title || !formData.image_url) {
       alert('Le titre et l\'image sont obligatoires')
+      return
+    }
+
+    // Validation de sécurité des URLs
+    if (formData.image_url && !isValidImageUrl(formData.image_url)) {
+      alert("URL d'image invalide. Utilisez uniquement des URLs https:// d'images valides")
       return
     }
 

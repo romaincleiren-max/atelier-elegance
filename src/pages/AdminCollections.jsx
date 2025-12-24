@@ -3,6 +3,7 @@ import { useAuth } from '../lib/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
 import { useAdminCheck } from '../hooks/useAdminCheck'
+import { isValidImageUrl } from '../lib/validation'
 
 export default function AdminCollections() {
   const { user } = useAuth()
@@ -50,6 +51,12 @@ export default function AdminCollections() {
 
     if (!formData.name || !formData.style || !formData.price || !formData.category || !formData.image_url) {
       alert('Veuillez remplir tous les champs obligatoires')
+      return
+    }
+
+    // Validation de sécurité des URLs
+    if (formData.image_url && !isValidImageUrl(formData.image_url)) {
+      alert("URL d'image invalide. Utilisez uniquement des URLs https:// d'images valides")
       return
     }
 

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './lib/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -24,11 +25,31 @@ function App() {
             <Route path="/essayage" element={<Essayage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/book-appointment" element={<BookAppointment />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/collections" element={<AdminCollections />} />
-            <Route path="/admin/photos" element={<AdminPhotos />} />
-            <Route path="/admin/settings" element={<AdminSettings />} />
+            <Route path="/account" element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute requireAdmin={true}>
+                <Admin />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/collections" element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminCollections />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/photos" element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminPhotos />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/settings" element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminSettings />
+              </ProtectedRoute>
+            } />
           </Routes>
           <Footer />
         </div>

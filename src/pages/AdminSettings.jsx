@@ -3,6 +3,7 @@ import { useAuth } from '../lib/AuthContext'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
 import { useAdminCheck } from '../hooks/useAdminCheck'
+import { isValidUrl, isValidImageUrl } from '../lib/validation'
 
 export default function AdminSettings() {
   const { user } = useAuth()
@@ -52,6 +53,21 @@ export default function AdminSettings() {
     setMessage({ type: '', text: '' })
 
     try {
+      // Validation des URLs
+      if (settings.hero_video_url && !isValidUrl(settings.hero_video_url)) {
+        throw new Error('URL de la vidéo invalide. Utilisez uniquement http:// ou https://')
+      }
+
+      if (settings.accessories_banner_url && !isValidImageUrl(settings.accessories_banner_url)) {
+        throw new Error('URL de la bannière invalide. Utilisez une URL d\'image valide (http:// ou https://)')
+      }
+
+      // Validation du timestamp
+      const timestamp = parseInt(settings.hero_video_start)
+      if (isNaN(timestamp) || timestamp < 0) {
+        throw new Error('Le timestamp de démarrage doit être un nombre positif')
+      }
+
       // Mettre à jour l'URL de la vidéo
       const { error: urlError } = await supabase
         .from('site_settings')
@@ -78,8 +94,8 @@ export default function AdminSettings() {
 
       setMessage({ type: 'success', text: 'Paramètres enregistrés avec succès ! Rechargez la page d\'accueil pour voir les changements.' })
     } catch (error) {
-      console.error('Erreur:', error)
-      setMessage({ type: 'error', text: 'Erreur lors de l\'enregistrement: ' + error.message })
+      console.error('[AdminSettings] Erreur de validation/sauvegarde')
+      setMessage({ type: 'error', text: error.message || 'Erreur lors de l\'enregistrement' })
     } finally {
       setSaving(false)
     }
