@@ -355,6 +355,21 @@ export default function Admin() {
             📸 Photos
           </a>
           <a
+            href="/admin/logos"
+            style={{
+              padding: '0.8rem 1.5rem',
+              background: 'var(--gradient-sunset)',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '25px',
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              transition: 'all 0.3s'
+            }}
+          >
+            🏷️ Logos
+          </a>
+          <a
             href="/admin/settings"
             style={{
               padding: '0.8rem 1.5rem',
