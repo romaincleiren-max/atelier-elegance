@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import AuthModal from './AuthModal'
+import LogoDisplay from './LogoDisplay'
 
 export default function Header() {
   const [authModalOpen, setAuthModalOpen] = useState(false)
@@ -14,10 +15,16 @@ export default function Header() {
     <>
       <header className="header">
         <div className="header-content">
-          <Link to="/" className="logo-container" onClick={closeMobileMenu}>
-            <div className="logo">COLINE CLEIREN</div>
-            <div className="logo-subtitle">Couture et sur-mesure à Bordeaux</div>
-          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+            <Link to="/" className="logo-container" onClick={closeMobileMenu}>
+              <div className="logo">COLINE CLEIREN</div>
+              <div className="logo-subtitle">Couture et sur-mesure à Bordeaux</div>
+            </Link>
+            <LogoDisplay
+              placement="header"
+              style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
+            />
+          </div>
 
           <button 
             className="mobile-menu-toggle"
