@@ -15,18 +15,12 @@ export default function Header() {
     <>
       <header className="header">
         <div className="header-content">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-            <Link to="/" className="logo-container" onClick={closeMobileMenu}>
-              <div className="logo">COLINE CLEIREN</div>
-              <div className="logo-subtitle">Couture et sur-mesure à Bordeaux</div>
-            </Link>
-            <LogoDisplay
-              placement="header"
-              style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
-            />
-          </div>
+          <Link to="/" className="logo-container" onClick={closeMobileMenu}>
+            <div className="logo">COLINE CLEIREN</div>
+            <div className="logo-subtitle">Couture et sur-mesure à Bordeaux</div>
+          </Link>
 
-          <button 
+          <button
             className="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
@@ -40,25 +34,31 @@ export default function Header() {
             <Link to="/" className="nav-link" onClick={closeMobileMenu}>Collection</Link>
             <Link to="/essayage" className="nav-link" onClick={closeMobileMenu}>L'Atelier</Link>
             <Link to="/contact" className="nav-link" onClick={closeMobileMenu}>Contact</Link>
+
+            <LogoDisplay
+              placement="header"
+              style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
+            />
+
             {user ? (
               <>
                 <Link to="/account" className="nav-link" onClick={closeMobileMenu}>Mon Compte</Link>
-                <button 
+                <button
                   onClick={() => {
                     signOut()
                     closeMobileMenu()
-                  }} 
+                  }}
                   className="btn-proposal"
                 >
                   Déconnexion
                 </button>
               </>
             ) : (
-              <button 
+              <button
                 onClick={() => {
                   setAuthModalOpen(true)
                   closeMobileMenu()
-                }} 
+                }}
                 className="btn-proposal"
               >
                 Connexion
