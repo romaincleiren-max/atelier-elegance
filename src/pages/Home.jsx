@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../lib/AuthContext'
 import DressCard from '../components/DressCard'
+import LogoDisplay from '../components/LogoDisplay'
 
 export default function Home() {
   const { user } = useAuth()

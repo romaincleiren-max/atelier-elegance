@@ -1,3 +1,5 @@
+import LogoDisplay from './LogoDisplay'
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -6,6 +8,11 @@ export default function Footer() {
           <h3>Coline Cleiren</h3>
           <p>Couture et sur-mesure à Bordeaux</p>
           <p>Chaque création est unique et réalisée avec passion.</p>
+          
+          <LogoDisplay 
+            placement="footer" 
+            style={{ marginTop: '1.5rem', justifyContent: 'flex-start' }}
+          />
         </div>
         <div className="footer-section">
           <h3>Nos Services</h3>
@@ -26,6 +33,19 @@ export default function Footer() {
           <p>Dimanche: Fermé</p>
         </div>
       </div>
+      
+      <LogoDisplay 
+        placement="partenaires"
+        className="footer-partners"
+        style={{
+          padding: '2rem 0',
+          justifyContent: 'center',
+          borderTop: '1px solid rgba(255,255,255,0.1)',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
+          margin: '1rem 0'
+        }}
+      />
+      
       <div className="footer-bottom">
         <p>&copy; 2025 Coline Cleiren Couture</p>
       </div>

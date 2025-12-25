@@ -8,6 +8,7 @@ import Account from './pages/Account'
 import Admin from './pages/Admin'
 import AdminCollections from './pages/AdminCollections'
 import AdminPhotos from './pages/AdminPhotos'
+import AdminLogos from './pages/AdminLogos'
 import AdminSettings from './pages/AdminSettings'
 import Contact from './pages/Contact'
 import Essayage from './pages/Essayage'
@@ -43,6 +44,11 @@ function App() {
             <Route path="/admin/photos" element={
               <ProtectedRoute requireAdmin={true}>
                 <AdminPhotos />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/logos" element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminLogos />
               </ProtectedRoute>
             } />
             <Route path="/admin/settings" element={
