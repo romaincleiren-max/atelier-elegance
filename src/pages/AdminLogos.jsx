@@ -11,15 +11,18 @@ export default function AdminLogos() {
   const { isAdmin, loading: adminLoading } = useAdminCheck()
   const [logos, setLogos] = useState([])
   const [loading, setLoading] = useState(true)
-  const [uploading, setUploading] = useState(false)
   const [editingLogo, setEditingLogo] = useState(null)
   const [formData, setFormData] = useState({
-    title: '',
+    name: '',
     description: '',
     image_url: '',
-    display_order: 1
+    placement: 'footer',
+    display_order: 1,
+    active: true,
+    width: null,
+    height: null,
+    link_url: ''
   })
-  const [uploadFile, setUploadFile] = useState(null)
 
   useEffect(() => {
     if (!user) {
@@ -45,44 +48,13 @@ export default function AdminLogos() {
     setLoading(false)
   }
 
-  async function handleFileUpload(e) {
-    const file = e.target.files[0]
-    if (!file) return
-
-    setUploadFile(file)
-    setUploading(true)
-
-    try {
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`
-      const filePath = fileName
-
-      const { error: uploadError } = await supabase.storage
-        .from('logos')
-        .upload(filePath, file)
-
-      if (uploadError) throw uploadError
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('logos')
-        .getPublicUrl(filePath)
-
-      setFormData({ ...formData, image_url: publicUrl })
-      alert('Image uploadée avec succès!')
-    } catch (error) {
-      console.error('Erreur upload:', error)
-      alert('Erreur lors de l\'upload: ' + error.message)
-    } finally {
-      setUploading(false)
-    }
-  }
 
   async function handleSubmit(e) {
     e.preventDefault()
     if (!supabase) return
 
-    if (!formData.title || !formData.image_url) {
-      alert('Le titre et l\'image sont obligatoires')
+    if (!formData.name || !formData.image_url) {
+      alert('Le nom et l\'URL de l\'image sont obligatoires')
       return
     }
 
@@ -93,26 +65,33 @@ export default function AdminLogos() {
     }
 
     try {
+      const logoData = {
+        name: formData.name,
+        description: formData.description,
+        image_url: formData.image_url,
+        placement: formData.placement,
+        display_order: formData.display_order,
+        active: formData.active,
+        width: formData.width || null,
+        height: formData.height || null,
+        link_url: formData.link_url || null
+      }
+
       if (editingLogo) {
         const { error } = await supabase
           .from('logos')
-          .update({
-            title: formData.title,
-            description: formData.description,
-            image_url: formData.image_url,
-            display_order: formData.display_order
-          })
+          .update(logoData)
           .eq('id', editingLogo.id)
 
         if (error) throw error
-        alert('Logo modifiée avec succès!')
+        alert('Logo modifié avec succès!')
       } else {
         const { error } = await supabase
           .from('logos')
-          .insert([formData])
+          .insert([logoData])
 
         if (error) throw error
-        alert('Logo ajoutée avec succès!')
+        alert('Logo ajouté avec succès!')
       }
 
       resetForm()
@@ -144,10 +123,15 @@ export default function AdminLogos() {
   function editLogo(logo) {
     setEditingLogo(logo)
     setFormData({
-      title: logo.title,
+      name: logo.name,
       description: logo.description || '',
       image_url: logo.image_url,
-      display_order: logo.display_order
+      placement: logo.placement,
+      display_order: logo.display_order,
+      active: logo.active,
+      width: logo.width || null,
+      height: logo.height || null,
+      link_url: logo.link_url || ''
     })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -155,12 +139,16 @@ export default function AdminLogos() {
   function resetForm() {
     setEditingLogo(null)
     setFormData({
-      title: '',
+      name: '',
       description: '',
       image_url: '',
-      display_order: logos.length + 1
+      placement: 'footer',
+      display_order: logos.length + 1,
+      active: true,
+      width: null,
+      height: null,
+      link_url: ''
     })
-    setUploadFile(null)
   }
 
   if (adminLoading) {
@@ -189,55 +177,21 @@ export default function AdminLogos() {
         border: '2px solid var(--secondary)'
       }}>
         <h2 className="dress-title" style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>
-          {editingLogo ? 'Modifier la logo' : 'Ajouter une logo'}
+          {editingLogo ? 'Modifier le logo' : 'Ajouter un logo'}
         </h2>
 
         <form onSubmit={handleSubmit}>
           <div style={{ display: 'grid', gap: '1.5rem' }}>
-            {/* Upload image */}
+            {/* Nom */}
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
-                Image *
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileUpload}
-                disabled={uploading}
-                style={{
-                  width: '100%',
-                  padding: '0.8rem',
-                  border: '2px solid var(--secondary)',
-                  borderRadius: '8px'
-                }}
-              />
-              {uploading && <p style={{ marginTop: '0.5rem', color: 'var(--accent)' }}>Upload en cours...</p>}
-              {formData.image_url && (
-                <div style={{ marginTop: '1rem' }}>
-                  <img
-                    src={formData.image_url}
-                    alt="Aperçu"
-                    style={{
-                      width: '200px',
-                      height: '150px',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                      border: '2px solid var(--secondary)'
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Titre */}
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
-                Titre *
+                Nom *
               </label>
               <input
                 type="text"
-                value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Ex: Logo Instagram"
                 required
                 style={{
                   width: '100%',
@@ -249,6 +203,71 @@ export default function AdminLogos() {
               />
             </div>
 
+            {/* URL de l'image */}
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+                URL de l'image *
+              </label>
+              <input
+                type="url"
+                value={formData.image_url}
+                onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                placeholder="https://exemple.com/logo.png"
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.8rem',
+                  border: '2px solid var(--secondary)',
+                  borderRadius: '8px',
+                  fontSize: '1rem'
+                }}
+              />
+              {formData.image_url && (
+                <div style={{ marginTop: '1rem' }}>
+                  <img
+                    src={formData.image_url}
+                    alt="Aperçu"
+                    style={{
+                      maxWidth: '200px',
+                      maxHeight: '150px',
+                      objectFit: 'contain',
+                      borderRadius: '8px',
+                      border: '2px solid var(--secondary)'
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none'
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Placement */}
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+                Emplacement *
+              </label>
+              <select
+                value={formData.placement}
+                onChange={(e) => setFormData({ ...formData, placement: e.target.value })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.8rem',
+                  border: '2px solid var(--secondary)',
+                  borderRadius: '8px',
+                  fontSize: '1rem'
+                }}
+              >
+                <option value="header">En-tête</option>
+                <option value="footer">Pied de page</option>
+                <option value="hero">Section Hero</option>
+                <option value="sponsors">Sponsors</option>
+                <option value="partenaires">Partenaires</option>
+                <option value="sidebar">Barre latérale</option>
+              </select>
+            </div>
+
             {/* Description */}
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
@@ -258,6 +277,7 @@ export default function AdminLogos() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows="3"
+                placeholder="Description optionnelle"
                 style={{
                   width: '100%',
                   padding: '0.8rem',
@@ -269,18 +289,18 @@ export default function AdminLogos() {
               />
             </div>
 
-            {/* Ordre d'affichage */}
+            {/* Lien URL (optionnel) */}
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
-                Ordre d'affichage
+                Lien URL (optionnel)
               </label>
               <input
-                type="number"
-                min="1"
-                value={formData.display_order}
-                onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) })}
+                type="url"
+                value={formData.link_url}
+                onChange={(e) => setFormData({ ...formData, link_url: e.target.value })}
+                placeholder="https://exemple.com"
                 style={{
-                  width: '150px',
+                  width: '100%',
                   padding: '0.8rem',
                   border: '2px solid var(--secondary)',
                   borderRadius: '8px',
@@ -289,17 +309,87 @@ export default function AdminLogos() {
               />
             </div>
 
+            {/* Dimensions */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+                  Largeur (px)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.width || ''}
+                  onChange={(e) => setFormData({ ...formData, width: e.target.value ? parseInt(e.target.value) : null })}
+                  placeholder="Auto"
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    border: '2px solid var(--secondary)',
+                    borderRadius: '8px',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+                  Hauteur (px)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.height || ''}
+                  onChange={(e) => setFormData({ ...formData, height: e.target.value ? parseInt(e.target.value) : null })}
+                  placeholder="Auto"
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    border: '2px solid var(--secondary)',
+                    borderRadius: '8px',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+                  Ordre
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.display_order}
+                  onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) })}
+                  style={{
+                    width: '100%',
+                    padding: '0.8rem',
+                    border: '2px solid var(--secondary)',
+                    borderRadius: '8px',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Actif */}
+            <div>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '600', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={formData.active}
+                  onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
+                  style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                />
+                Logo actif (visible sur le site)
+              </label>
+            </div>
+
             {/* Boutons */}
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button
                 type="submit"
                 className="btn-primary"
-                disabled={uploading}
                 style={{
                   padding: '1rem 2rem',
-                  fontSize: '1rem',
-                  cursor: uploading ? 'not-allowed' : 'pointer',
-                  opacity: uploading ? 0.6 : 1
+                  fontSize: '1rem'
                 }}
               >
                 {editingLogo ? 'Modifier' : 'Ajouter'}
@@ -321,14 +411,14 @@ export default function AdminLogos() {
 
       {/* Liste des logos */}
       <h2 className="dress-title" style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>
-        Logos actuelles ({logos.length})
+        Logos actuels ({logos.length})
       </h2>
 
       {loading ? (
         <p style={{ textAlign: 'center', padding: '2rem' }}>Chargement...</p>
       ) : logos.length === 0 ? (
         <p style={{ textAlign: 'center', padding: '2rem', opacity: 0.7 }}>
-          Aucune logo. Ajoutez-en une ci-dessus!
+          Aucun logo. Ajoutez-en un ci-dessus!
         </p>
       ) : (
         <div style={{
@@ -338,24 +428,35 @@ export default function AdminLogos() {
         }}>
           {logos.map((logo) => (
             <div key={logo.id} style={{
-              background: 'white',
+              background: logo.active ? 'white' : '#f3f4f6',
               borderRadius: '15px',
               overflow: 'hidden',
               boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-              border: '2px solid var(--secondary)'
+              border: logo.active ? '2px solid var(--secondary)' : '2px solid #d1d5db',
+              opacity: logo.active ? 1 : 0.7
             }}>
-              <img
-                src={logo.image_url}
-                alt={logo.title}
-                style={{
-                  width: '100%',
-                  height: '250px',
-                  objectFit: 'cover'
-                }}
-                onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/300x250?text=Image+non+disponible'
-                }}
-              />
+              <div style={{
+                width: '100%',
+                height: '200px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#f8f9fa',
+                padding: '1rem'
+              }}>
+                <img
+                  src={logo.image_url}
+                  alt={logo.name}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain'
+                  }}
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/300x200?text=Image+non+disponible'
+                  }}
+                />
+              </div>
               <div style={{ padding: '1.5rem' }}>
                 <div style={{
                   display: 'flex',
@@ -368,7 +469,7 @@ export default function AdminLogos() {
                     fontSize: '1.3rem',
                     marginBottom: '0.5rem'
                   }}>
-                    {logo.title}
+                    {logo.name}
                   </h3>
                   <span style={{
                     background: 'var(--gradient-sunset)',
@@ -381,11 +482,47 @@ export default function AdminLogos() {
                     #{logo.display_order}
                   </span>
                 </div>
+                <p style={{ fontSize: '0.85rem', color: 'var(--accent)', marginBottom: '0.5rem', fontWeight: '600' }}>
+                  📍 {logo.placement === 'header' ? 'En-tête' :
+                     logo.placement === 'footer' ? 'Pied de page' :
+                     logo.placement === 'hero' ? 'Section Hero' :
+                     logo.placement === 'sponsors' ? 'Sponsors' :
+                     logo.placement === 'partenaires' ? 'Partenaires' : 'Barre latérale'}
+                </p>
                 {logo.description && (
                   <p style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '1rem' }}>
                     {logo.description}
                   </p>
                 )}
+                {(logo.width || logo.height) && (
+                  <p style={{ fontSize: '0.85rem', opacity: 0.6, marginBottom: '0.5rem' }}>
+                    Taille: {logo.width || 'auto'} × {logo.height || 'auto'} px
+                  </p>
+                )}
+                {logo.link_url && (
+                  <p style={{ fontSize: '0.85rem', opacity: 0.6, marginBottom: '1rem' }}>
+                    🔗 <a href={logo.link_url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>
+                      Lien actif
+                    </a>
+                  </p>
+                )}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginBottom: '1rem',
+                  padding: '0.5rem',
+                  background: logo.active ? '#d1fae5' : '#fee2e2',
+                  borderRadius: '8px'
+                }}>
+                  <span style={{
+                    fontSize: '0.85rem',
+                    fontWeight: '600',
+                    color: logo.active ? '#10b981' : '#ef4444'
+                  }}>
+                    {logo.active ? '✓ Actif' : '✗ Inactif'}
+                  </span>
+                </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <button
                     onClick={() => editLogo(logo)}
