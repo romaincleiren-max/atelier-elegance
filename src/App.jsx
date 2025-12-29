@@ -13,6 +13,7 @@ import AdminSettings from './pages/AdminSettings'
 import Contact from './pages/Contact'
 import Essayage from './pages/Essayage'
 import BookAppointment from './pages/BookAppointment'
+import AuthDebug from './pages/AuthDebug'
 import './styles/main.css'
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
                 <AdminSettings />
               </ProtectedRoute>
             } />
+            <Route path="/auth-debug" element={<AuthDebug />} />
           </Routes>
           <Footer />
         </div>
