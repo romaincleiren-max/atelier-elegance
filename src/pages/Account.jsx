@@ -31,13 +31,11 @@ export default function Account() {
   const [loadingFavorites, setLoadingFavorites] = useState(true)
 
   useEffect(() => {
-    if (!user) {
-      navigate('/')
-      return
+    if (user) {
+      fetchAppointments()
+      fetchFavorites()
     }
-    fetchAppointments()
-    fetchFavorites()
-  }, [user, navigate])
+  }, [user])
 
   async function fetchAppointments() {
     if (!supabase) return
