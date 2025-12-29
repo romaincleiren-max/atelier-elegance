@@ -55,16 +55,24 @@ CREATE POLICY "Seuls les admins peuvent gérer les logos"
         (auth.jwt() -> 'user_metadata' ->> 'role')::text = 'admin'
     );
 
--- 5. photos
-DROP POLICY IF EXISTS "Seuls les admins peuvent gérer les photos" ON photos;
-CREATE POLICY "Seuls les admins peuvent gérer les photos"
-    ON photos FOR ALL
-    USING (
-        (auth.jwt() -> 'user_metadata' ->> 'role')::text = 'admin'
-    )
-    WITH CHECK (
-        (auth.jwt() -> 'user_metadata' ->> 'role')::text = 'admin'
-    );
+-- 5. photos (si la table existe)
+DO $$
+BEGIN
+    IF EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'photos') THEN
+        DROP POLICY IF EXISTS "Seuls les admins peuvent gérer les photos" ON photos;
+        CREATE POLICY "Seuls les admins peuvent gérer les photos"
+            ON photos FOR ALL
+            USING (
+                (auth.jwt() -> 'user_metadata' ->> 'role')::text = 'admin'
+            )
+            WITH CHECK (
+                (auth.jwt() -> 'user_metadata' ->> 'role')::text = 'admin'
+            );
+        RAISE NOTICE 'Politique photos mise à jour';
+    ELSE
+        RAISE NOTICE 'Table photos n''existe pas encore, ignorée';
+    END IF;
+END $$;
 
 -- Confirmation
 SELECT 'Politiques RLS corrigées avec succès!' as message;
