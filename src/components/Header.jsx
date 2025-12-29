@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
+import { useAdminStatus } from '../hooks/useAdminStatus'
 import AuthModal from './AuthModal'
 import LogoDisplay from './LogoDisplay'
 
@@ -8,6 +9,7 @@ export default function Header() {
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { user, signOut } = useAuth()
+  const { isAdmin } = useAdminStatus()
 
   const closeMobileMenu = () => setMobileMenuOpen(false)
 
@@ -42,7 +44,11 @@ export default function Header() {
 
             {user ? (
               <>
-                <Link to="/account" className="nav-link" onClick={closeMobileMenu}>Mon Compte</Link>
+                {isAdmin ? (
+                  <Link to="/admin" className="nav-link" onClick={closeMobileMenu}>Admin</Link>
+                ) : (
+                  <Link to="/account" className="nav-link" onClick={closeMobileMenu}>Mon Compte</Link>
+                )}
                 <button
                   onClick={() => {
                     signOut()
