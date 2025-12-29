@@ -11,6 +11,8 @@ export default function Account() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ type: '', text: '' })
 
+  console.log('[Account] Component mounted, user:', user ? user.email : 'null')
+
   // Changement de mot de passe
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -31,9 +33,13 @@ export default function Account() {
   const [loadingFavorites, setLoadingFavorites] = useState(true)
 
   useEffect(() => {
+    console.log('[Account] useEffect triggered, user:', user ? user.email : 'null')
     if (user) {
+      console.log('[Account] User exists, fetching data...')
       fetchAppointments()
       fetchFavorites()
+    } else {
+      console.log('[Account] No user, waiting for auth...')
     }
   }, [user])
 
