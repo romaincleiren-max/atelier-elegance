@@ -95,7 +95,7 @@ export default function Essayage() {
               border: '3px solid var(--secondary)'
             }}>
               <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: '1.5rem' }}>
-                📍 Nous trouver
+                Nous trouver
               </h3>
               <p style={{ marginBottom: '1rem', lineHeight: '1.6' }}>
                 <strong>{atelierInfo?.address || '123 Rue de l\'Élégance'}</strong><br />
@@ -103,7 +103,7 @@ export default function Essayage() {
               </p>
 
               <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: '1rem', marginTop: '2rem' }}>
-                🕐 Horaires
+                Horaires
               </h3>
               <div style={{ whiteSpace: 'pre-line', lineHeight: '1.6' }}>
                 {atelierInfo?.opening_hours ||
@@ -111,7 +111,7 @@ export default function Essayage() {
               </div>
 
               <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: '1rem', marginTop: '2rem' }}>
-                📞 Contact
+                Contact
               </h3>
               <p style={{ lineHeight: '1.6' }}>
                 <a href={`tel:${atelierInfo?.phone || '0123456789'}`} style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -178,7 +178,7 @@ export default function Essayage() {
               textAlign: 'center',
               border: '2px dashed var(--secondary)'
             }}>
-              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📸</div>
+              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}></div>
               <h3 style={{
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: '1.5rem',
@@ -235,7 +235,7 @@ export default function Essayage() {
                 e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)'
               }}
             >
-              📅 Prendre Rendez-vous
+              Prendre rendez-vous
             </a>
             <a
               href="/"

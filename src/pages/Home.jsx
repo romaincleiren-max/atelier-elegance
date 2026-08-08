@@ -518,10 +518,10 @@ export default function Home() {
                       fontSize: '0.95rem',
                       lineHeight: '2'
                     }}>
-                      <li>✨ Modèle disponible à l'essayage</li>
-                      <li>📏 Ajustements sur mesure possibles</li>
-                      <li>🎨 Personnalisation selon vos souhaits</li>
-                      <li>📅 Rendez-vous sans engagement</li>
+                      <li>Modèle disponible à l'essayage</li>
+                      <li>Ajustements sur mesure possibles</li>
+                      <li>Personnalisation selon vos souhaits</li>
+                      <li>Rendez-vous sans engagement</li>
                     </ul>
                   </div>
                 </div>
@@ -541,7 +541,7 @@ export default function Home() {
                       fontWeight: '600'
                     }}
                   >
-                    📅 Prendre Rendez-vous
+                    Prendre rendez-vous
                   </button>
                   <button
                     className="action-btn btn-secondary"
@@ -551,7 +551,7 @@ export default function Home() {
                       fontSize: '1.1rem'
                     }}
                   >
-                    ❤️ Ajouter aux Favoris
+                    Ajouter aux favoris
                   </button>
                 </div>
               </div>

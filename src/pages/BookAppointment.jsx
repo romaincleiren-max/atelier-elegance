@@ -84,7 +84,7 @@ export default function BookAppointment() {
           textAlign: 'center'
         }}>
           <p style={{ fontWeight: '600', marginBottom: '1rem' }}>
-            ⚠️ Vous devez être connecté pour prendre rendez-vous
+            Vous devez être connecté pour prendre rendez-vous
           </p>
           <a
             href="/account"
@@ -297,7 +297,7 @@ export default function BookAppointment() {
                 fontWeight: '600'
               }}
             >
-              {submitting ? 'Envoi en cours...' : '📅 Envoyer la demande'}
+              {submitting ? 'Envoi en cours...' : 'Envoyer la demande'}
             </button>
             <button
               type="button"
@@ -333,7 +333,7 @@ export default function BookAppointment() {
         border: '2px solid var(--secondary)'
       }}>
         <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--accent)' }}>
-          📍 Informations pratiques
+          Informations pratiques
         </h3>
         <div style={{ lineHeight: '1.8', opacity: 0.9 }}>
           <p style={{ marginBottom: '0.8rem' }}>
@@ -346,7 +346,7 @@ export default function BookAppointment() {
             <strong>Délai de réponse:</strong> Nous vous répondrons sous 24-48h
           </p>
           <p style={{ fontStyle: 'italic', fontSize: '0.95rem', marginTop: '1rem' }}>
-            💡 Astuce: Pour un essayage de robe, vous pouvez aussi réserver directement depuis notre{' '}
+            Pour un essayage de robe, vous pouvez aussi réserver directement depuis notre{' '}
             <a href="/" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>
               catalogue de robes
             </a>

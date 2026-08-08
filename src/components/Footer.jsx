@@ -1,53 +1,39 @@
-import LogoDisplay from './LogoDisplay'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
+
         <div className="footer-section">
-          <h3>Coline Cleiren</h3>
-          <p>Couture et sur-mesure à Bordeaux</p>
-          <p>Chaque création est unique et réalisée avec passion.</p>
-          
-          <LogoDisplay 
-            placement="footer" 
-            style={{ marginTop: '1.5rem', justifyContent: 'flex-start' }}
-          />
-        </div>
-        <div className="footer-section">
-          <h3>Nos Services</h3>
-          <a href="#">Robes sur mesure</a>
-          <a href="#">Retouches</a>
-          <a href="#">Créations personnalisées</a>
-        </div>
-        <div className="footer-section">
-          <h3>Contact</h3>
+          <h3>Atelier</h3>
           <p>Bordeaux, France</p>
           <p>Sur rendez-vous uniquement</p>
-          <p>Email: contact@colinecleiren.fr</p>
         </div>
+
+        <div className="footer-section">
+          <h3>Créations</h3>
+          <Link to="/">Collection</Link>
+          <a href="#">Robes sur mesure</a>
+          <a href="#">Retouches & ajustements</a>
+        </div>
+
+        <div className="footer-section">
+          <h3>Contact</h3>
+          <a href="mailto:contact@colinecleiren.fr">contact@colinecleiren.fr</a>
+          <Link to="/contact">Prendre rendez-vous</Link>
+        </div>
+
         <div className="footer-section">
           <h3>Horaires</h3>
-          <p>Lundi - Vendredi: 10h - 18h</p>
-          <p>Samedi: 10h - 17h</p>
-          <p>Dimanche: Fermé</p>
+          <p>Lundi – Vendredi · 10h–18h</p>
+          <p>Samedi · 10h–17h</p>
         </div>
+
       </div>
-      
-      <LogoDisplay 
-        placement="partenaires"
-        className="footer-partners"
-        style={{
-          padding: '2rem 0',
-          justifyContent: 'center',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          borderBottom: '1px solid rgba(255,255,255,0.1)',
-          margin: '1rem 0'
-        }}
-      />
-      
+
       <div className="footer-bottom">
-        <p>&copy; 2025 Coline Cleiren Couture</p>
+        <p>© {new Date().getFullYear()} &nbsp;Coline Cleiren Couture &nbsp;·&nbsp; Bordeaux</p>
       </div>
     </footer>
   )

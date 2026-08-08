@@ -90,7 +90,7 @@ export default function Contact() {
             e.target.style.boxShadow = '0 8px 25px rgba(255, 107, 138, 0.3)'
           }}
         >
-          📅 Prendre Rendez-vous
+          Prendre rendez-vous
         </a>
       </div>
 
@@ -235,7 +235,7 @@ export default function Contact() {
 
             <div style={{ marginBottom: '1.5rem' }}>
               <h3 style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--accent)' }}>
-                📍 Adresse
+                Adresse
               </h3>
               <p style={{ lineHeight: '1.6' }}>
                 123 Rue de l'Élégance<br />
@@ -246,7 +246,7 @@ export default function Contact() {
 
             <div style={{ marginBottom: '1.5rem' }}>
               <h3 style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--accent)' }}>
-                📞 Téléphone
+                Téléphone
               </h3>
               <p>
                 <a href="tel:0123456789" style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -257,7 +257,7 @@ export default function Contact() {
 
             <div style={{ marginBottom: '1.5rem' }}>
               <h3 style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--accent)' }}>
-                📧 Email
+                Email
               </h3>
               <p>
                 <a href="mailto:contact@atelier-elegance.fr" style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -268,7 +268,7 @@ export default function Contact() {
 
             <div>
               <h3 style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--accent)' }}>
-                🕐 Horaires
+                Horaires
               </h3>
               <p style={{ lineHeight: '1.8' }}>
                 <strong>Lundi - Vendredi:</strong> 10h - 18h<br />
@@ -287,7 +287,7 @@ export default function Contact() {
             border: '2px solid var(--accent)'
           }}>
             <h3 style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--accent)' }}>
-              💡 Bon à savoir
+              Bon à savoir
             </h3>
             <p style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
               Pour prendre rendez-vous pour un essayage, nous vous invitons à{' '}

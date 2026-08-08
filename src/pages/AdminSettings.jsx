@@ -338,7 +338,7 @@ export default function AdminSettings() {
                 opacity: saving ? 0.6 : 1
               }}
             >
-              {saving ? 'Enregistrement...' : '💾 Enregistrer les paramètres'}
+              {saving ? 'Enregistrement...' : 'Enregistrer les paramètres'}
             </button>
           </form>
         )}
@@ -353,7 +353,7 @@ export default function AdminSettings() {
         border: '2px solid var(--secondary)'
       }}>
         <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--accent)', fontWeight: '600' }}>
-          💡 Comment trouver une vidéo YouTube ?
+          Comment trouver une vidéo YouTube ?
         </h3>
         <ol style={{ lineHeight: '1.8', paddingLeft: '1.5rem' }}>
           <li>Allez sur YouTube et trouvez la vidéo que vous souhaitez utiliser</li>

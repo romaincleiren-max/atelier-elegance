@@ -389,7 +389,7 @@ export default function AdminCollections() {
                       fontSize: '0.9rem'
                     }}
                   >
-                    ✏️ Modifier
+                    Modifier
                   </button>
                   <button
                     onClick={() => deleteDress(dress.id)}
@@ -404,7 +404,7 @@ export default function AdminCollections() {
                       fontSize: '0.9rem'
                     }}
                   >
-                    🗑️ Supprimer
+                    Supprimer
                   </button>
                 </div>
               </div>
