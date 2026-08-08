@@ -28,22 +28,24 @@ export default function Header() {
             <Link to="/essayage"       className={'nav-link ' + (isActive('/essayage')       ? 'active' : '')} onClick={close}>L'Atelier</Link>
             <Link to="/contact"        className={'nav-link ' + (isActive('/contact')        ? 'active' : '')} onClick={close}>Contact</Link>
 
-            {/* Auth dans le menu mobile */}
-            {user ? (
-              <>
-                {isAdmin
-                  ? <Link to="/admin" className="nav-link" onClick={close}>Admin</Link>
-                  : <Link to="/account" className="nav-link" onClick={close}>Mon compte</Link>
-                }
-                <button className="btn-proposal" onClick={() => { signOut(); close() }}>
-                  Déconnexion
+            {/* Auth — visible uniquement dans le drawer mobile */}
+            <div className="nav-auth-mobile">
+              {user ? (
+                <>
+                  {isAdmin
+                    ? <Link to="/admin" className="nav-link" onClick={close}>Admin</Link>
+                    : <Link to="/account" className="nav-link" onClick={close}>Mon compte</Link>
+                  }
+                  <button className="btn-proposal" onClick={() => { signOut(); close() }}>
+                    Déconnexion
+                  </button>
+                </>
+              ) : (
+                <button className="btn-proposal" onClick={() => { setAuthModalOpen(true); close() }}>
+                  Connexion
                 </button>
-              </>
-            ) : (
-              <button className="btn-proposal" onClick={() => { setAuthModalOpen(true); close() }}>
-                Connexion
-              </button>
-            )}
+              )}
+            </div>
           </nav>
 
           {/* Centre — logo */}

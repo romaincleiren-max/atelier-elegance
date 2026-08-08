@@ -96,6 +96,9 @@ body {
   margin-top: 0.15rem;
 }
 
+/* Auth block — desktop: hidden in left nav, shown only in mobile drawer */
+.nav-auth-mobile { display: none; }
+
 /* Right nav cluster */
 .nav-right {
   display: flex;
@@ -1021,9 +1024,30 @@ div[style*="overflowX: auto"]::-webkit-scrollbar-thumb { background: var(--borde
 
   .nav .btn-proposal {
     width: 100%;
-    margin-top: 2rem;
     text-align: left;
     justify-content: flex-start;
+  }
+
+  /* Afficher le bloc auth dans le drawer mobile */
+  .nav-auth-mobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    gap: 0;
+  }
+
+  .nav-auth-mobile .nav-link {
+    width: 100%;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-align: left;
+    display: flex;
+    align-items: center;
   }
 
   .mobile-menu-overlay {
