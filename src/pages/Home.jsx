@@ -16,7 +16,7 @@ export default function Home() {
   const [appointmentModalOpen, setAppointmentModalOpen] = useState(false)
   const [videoUrl, setVideoUrl] = useState('https://www.youtube.com/watch?v=k1gj5wCLAhc')
   const [videoStart, setVideoStart] = useState('51')
-  const [heroImageUrl, setHeroImageUrl] = useState('/hero.jpg')
+  const [heroImageUrl, setHeroImageUrl] = useState('/hero.png')
   const [videoPlaying, setVideoPlaying] = useState(false)
   const [appointmentForm, setAppointmentForm] = useState({
     firstName: '', lastName: '', email: user?.email || '',
