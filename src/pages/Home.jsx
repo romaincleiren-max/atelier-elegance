@@ -28,6 +28,17 @@ export default function Home() {
     fetchSettings()
   }, [])
 
+  // Ajoute la classe 'visible' quand les cartes entrent dans le viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.05, rootMargin: '0px 0px -30px 0px' }
+    )
+    const cards = document.querySelectorAll('.dress-card, .dress-card-elegant')
+    cards.forEach(c => observer.observe(c))
+    return () => cards.forEach(c => observer.unobserve(c))
+  }, [filteredDresses])
+
   // Header transparent sur le hero
   useEffect(() => {
     const header = document.querySelector('.header')
