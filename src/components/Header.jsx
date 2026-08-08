@@ -23,9 +23,10 @@ export default function Header() {
 
           {/* Gauche — navigation principale */}
           <nav className={'nav ' + (mobileMenuOpen ? 'mobile-open' : '')}>
-            <Link to="/"          className={'nav-link ' + (isActive('/')          ? 'active' : '')} onClick={close}>Collection</Link>
-            <Link to="/essayage"  className={'nav-link ' + (isActive('/essayage')  ? 'active' : '')} onClick={close}>L'Atelier</Link>
-            <Link to="/contact"   className={'nav-link ' + (isActive('/contact')   ? 'active' : '')} onClick={close}>Contact</Link>
+            <Link to="/"               className={'nav-link ' + (isActive('/')               ? 'active' : '')} onClick={close}>Collection</Link>
+            <Link to="/la-creatrice"   className={'nav-link ' + (isActive('/la-creatrice')   ? 'active' : '')} onClick={close}>La créatrice</Link>
+            <Link to="/essayage"       className={'nav-link ' + (isActive('/essayage')       ? 'active' : '')} onClick={close}>L'Atelier</Link>
+            <Link to="/contact"        className={'nav-link ' + (isActive('/contact')        ? 'active' : '')} onClick={close}>Contact</Link>
 
             {/* Auth dans le menu mobile */}
             {user ? (

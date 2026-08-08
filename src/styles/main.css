@@ -1107,6 +1107,364 @@ div[style*="overflowX: auto"]::-webkit-scrollbar-thumb { background: var(--borde
 }
 
 /* ============================================================
+   FOOTER INSTAGRAM LINK
+   ============================================================ */
+
+.footer-insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.footer-insta:hover { opacity: 1; }
+
+/* ============================================================
+   NEWSLETTER SECTION
+   ============================================================ */
+
+.newsletter-section {
+  background: var(--bg-white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  padding: 6rem 2.5rem;
+}
+
+.newsletter-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 300;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+
+.newsletter-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.45;
+  margin-bottom: 2.5rem;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-title em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+}
+
+.newsletter-input-wrap {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--text);
+  width: 100%;
+  max-width: 400px;
+  gap: 0;
+}
+
+.newsletter-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.65rem 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--text);
+  outline: none;
+  letter-spacing: 0.5px;
+}
+
+.newsletter-input::placeholder {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.newsletter-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.2rem 0 0.8rem;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.newsletter-btn:hover {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.newsletter-confirm {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   LA CRÉATRICE PAGE
+   ============================================================ */
+
+.page-createur {
+  padding-top: 0;
+}
+
+/* Hero text */
+.createur-hero {
+  padding: 140px 2.5rem 5rem;
+  text-align: center;
+  background: var(--bg);
+}
+
+.createur-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 300;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+
+.createur-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.createur-title em {
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: 2px;
+}
+
+/* Portrait + text */
+.createur-portrait {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 3rem 6rem;
+  align-items: start;
+}
+
+.createur-portrait__img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.createur-portrait__img {
+  width: 100%;
+  height: 680px;
+  object-fit: cover;
+  object-position: center 18%;
+  display: block;
+}
+
+.createur-portrait__text {
+  padding-top: 3rem;
+}
+
+.createur-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.25rem;
+  color: var(--text);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  quotes: none;
+  padding-left: 0;
+  border: none;
+}
+
+.createur-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 2;
+  margin-bottom: 1.4rem;
+  opacity: 0.88;
+}
+
+/* Savoir-faire 3 colonnes */
+.createur-savoir {
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.createur-savoir__col {
+  padding: 4rem 3rem 4rem 0;
+  border-right: 1px solid var(--border);
+}
+
+.createur-savoir__col:last-child {
+  border-right: none;
+  padding-right: 0;
+  padding-left: 3rem;
+}
+
+.createur-savoir__col:not(:first-child):not(:last-child) {
+  padding-left: 3rem;
+}
+
+.createur-savoir__titre {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+
+/* CTA */
+.createur-cta {
+  text-align: center;
+  padding: 7rem 2.5rem 8rem;
+}
+
+.createur-cta__text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.createur-cta__btn {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--text);
+  text-decoration: none;
+  padding: 1.1rem 3rem;
+  transition: opacity 0.25s;
+}
+
+.createur-cta__btn:hover { opacity: 0.7; }
+
+/* ── Responsive — La Créatrice ── */
+
+@media (max-width: 900px) {
+  .createur-portrait {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .createur-portrait__img {
+    height: 460px;
+  }
+
+  .createur-portrait__text {
+    padding-top: 0;
+  }
+
+  .createur-savoir {
+    grid-template-columns: 1fr;
+    padding: 0 2rem;
+  }
+
+  .createur-savoir__col {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 0;
+  }
+
+  .createur-savoir__col:last-child {
+    border-bottom: none;
+    padding-left: 0;
+  }
+
+  .createur-savoir__col:not(:first-child):not(:last-child) {
+    padding-left: 0;
+  }
+
+  .createur-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .createur-hero {
+    padding: 120px 1.5rem 3.5rem;
+  }
+
+  .createur-title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+
+  .createur-cta {
+    padding: 4rem 1.5rem 5rem;
+  }
+
+  .createur-cta__text {
+    font-size: 1.6rem;
+  }
+
+  /* Newsletter mobile */
+  .newsletter-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .newsletter-title {
+    font-size: 1.55rem;
+  }
+
+  .newsletter-input-wrap {
+    max-width: 100%;
+  }
+
+  /* Collection stagger reset mobile */
+  .collection > *:nth-child(even) {
+    margin-top: 0;
+  }
+}
+
+/* ============================================================
    ADMIN PAGES — keep usable (no gradient text, no pink)
    ============================================================ */
 

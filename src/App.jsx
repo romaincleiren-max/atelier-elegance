@@ -3,6 +3,7 @@ import { AuthProvider } from './lib/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Newsletter from './components/Newsletter'
 import Home from './pages/Home'
 import Account from './pages/Account'
 import Admin from './pages/Admin'
@@ -13,6 +14,7 @@ import AdminSettings from './pages/AdminSettings'
 import Contact from './pages/Contact'
 import Essayage from './pages/Essayage'
 import BookAppointment from './pages/BookAppointment'
+import LaCreatrice from './pages/LaCreatrice'
 import AuthDebug from './pages/AuthDebug'
 import './styles/main.css'
 
@@ -23,10 +25,11 @@ function App() {
         <div className="app">
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/essayage" element={<Essayage />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/"               element={<Home />} />
+            <Route path="/essayage"       element={<Essayage />} />
+            <Route path="/contact"        element={<Contact />} />
             <Route path="/book-appointment" element={<BookAppointment />} />
+            <Route path="/la-creatrice"   element={<LaCreatrice />} />
             <Route path="/account" element={
               <ProtectedRoute>
                 <Account />
@@ -59,6 +62,7 @@ function App() {
             } />
             <Route path="/auth-debug" element={<AuthDebug />} />
           </Routes>
+          <Newsletter />
           <Footer />
         </div>
       </AuthProvider>

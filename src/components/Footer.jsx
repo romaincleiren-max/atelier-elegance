@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom'
 
+const InstagramIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+  </svg>
+)
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -14,8 +22,8 @@ export default function Footer() {
         <div className="footer-section">
           <h3>Créations</h3>
           <Link to="/">Collection</Link>
-          <a href="#">Robes sur mesure</a>
-          <a href="#">Retouches & ajustements</a>
+          <Link to="/la-creatrice">La créatrice</Link>
+          <Link to="/essayage">L'atelier</Link>
         </div>
 
         <div className="footer-section">
@@ -33,7 +41,19 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} &nbsp;Coline Cleiren Couture &nbsp;·&nbsp; Bordeaux</p>
+        <a
+          href="https://www.instagram.com/colinecleiren/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-insta"
+          aria-label="Instagram Coline Cleiren"
+        >
+          <InstagramIcon />
+          <span>@colinecleiren</span>
+        </a>
+        <p style={{ marginTop: '1.2rem' }}>
+          © {new Date().getFullYear()} &nbsp;Coline Cleiren Couture &nbsp;·&nbsp; Bordeaux
+        </p>
       </div>
     </footer>
   )
