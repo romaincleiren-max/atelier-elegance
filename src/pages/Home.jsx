@@ -220,7 +220,7 @@ export default function Home() {
         {/* Vidéo YouTube en arrière-plan */}
         <div className="hero-video-background">
           <iframe
-            src={`https://www.youtube.com/embed/${videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/)?.[1] || 'k1gj5wCLAhc'}?autoplay=1&mute=1&loop=1&playlist=${videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/)?.[1] || 'k1gj5wCLAhc'}&controls=0&showinfo=0&rel=0&modestbranding=1&start=${videoStart}`}
+            src={`https://www.youtube.com/embed/${videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/)?.[1] || 'k1gj5wCLAhc'}?autoplay=1&mute=1&loop=1&playlist=${videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/)?.[1] || 'k1gj5wCLAhc'}&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&iv_load_policy=3&start=${videoStart}`}
             title="Background video"
             allow="autoplay; encrypted-media"
             allowFullScreen
